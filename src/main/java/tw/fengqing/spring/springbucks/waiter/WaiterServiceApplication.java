@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.lang.NonNull;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -23,7 +24,7 @@ public class WaiterServiceApplication implements WebMvcConfigurer {
 	}
 
 	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
+	public void addInterceptors(@NonNull InterceptorRegistry registry) {
 		registry.addInterceptor(new PerformanceInteceptor())
 				.addPathPatterns("/coffee/**").addPathPatterns("/order/**");
 	}
@@ -37,7 +38,7 @@ public class WaiterServiceApplication implements WebMvcConfigurer {
 	public Jackson2ObjectMapperBuilderCustomizer jacksonBuilderCustomizer() {
 		return builder -> {
 			builder.indentOutput(true);
-			builder.timeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+			builder.timeZone(TimeZone.getTimeZone("Asia/Taipei"));
 		};
 	}
 }
